@@ -28,7 +28,6 @@ int main(int argc, char *argv[])
     else{
       int count = 0;
       while (count < N && scanf("%d", &a[count]) == 1) count++;
-      N = count;
       }
     sort(a, 0, N-1);
     for (i = 0; i < N; i++) printf("%3d ", a[i]);
