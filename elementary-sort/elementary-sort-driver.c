@@ -25,8 +25,11 @@ int main(int argc, char *argv[])
       for (i = 0; i < N; i++) printf("%3d ", a[i]);
       printf("\n");
     }
-    else
-      while(scanf("%d", &a[N]) == 1) N++; //allows user to input list from standard input
+    else{
+      int count = 0;
+      while (count < N && scanf("%d", &a[count]) == 1) count++;
+      N = count;
+      }
     sort(a, 0, N-1);
     for (i = 0; i < N; i++) printf("%3d ", a[i]);
     printf("\n");
