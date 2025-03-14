@@ -32,7 +32,7 @@ void insertion_sentinel(Item a[], int l, int r)
 
   for(i=l+2; i<=r; i++)
   {
-    int j=i; Item key = a[j]
+    int j=i; Item key = a[j];
     while(less(key, a[j-1]))
       {a[j] = a[j-1]; j--;}
     a[j] = key;
@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
       int count = 0;
       while (count < N && scanf("%d", &a[count]) == 1) count++;
       }
-    sort(a, 0, N-1);
+    insertion_sentinel(a, 0, N-1);
     for (i = 0; i < N; i++) printf("%3d ", a[i]);
     printf("\n");
     return 0;
