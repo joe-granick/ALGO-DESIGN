@@ -17,7 +17,20 @@ void insertion_sort(Item a[], int l, int r)
   }
 
 
-/*
+/* Insertion Sort w/ Sentinel Key
+ * Properties:
+ *  Time Complexity 
+ *    Worst O(n^2)
+ *    Average O(n^2)
+ *    Best O(n)
+ *  Space Complexity 
+ *    Worst() 
+ *    Average O()
+ *    Best O()
+ *  Stable: Y
+ *  In Place: Y
+ *  Adaptive: Y
+ *
  * this version of insertion sort improves upon the previous implementation in 3 ways
 * 1. sentinel key is created by sorting the smallest element into the first index 
 * 2. exchange removed from inner loop, just using a single assignment avoidng the overhead ops of compexch
@@ -26,17 +39,58 @@ void insertion_sort(Item a[], int l, int r)
 void insertion_sentinel(Item a[], int l, int r)
 {
   int i;
-
   // find lowest value for sentinel key, and place in first index
   for(i=r; i>l; i--) compexch(a[i-1],a[i]);
-
-  for(i=l+2; i<=r; i++)
-  {
-    int j=i; Item key = a[j];
+  // main work of insertion sort
+  for(i=l+2; i<=r; i++) // assume first entry sorted, second element becomes first selection compared to 2nd element 
+  {int j=i; Item key = a[j];
     while(less(key, a[j-1]))
       {a[j] = a[j-1]; j--;}
-    a[j] = key;
+    a[j] = key;}
+}
+
+/* Bubble Sort 
+ * Properties:
+ *  Time Complexity 
+ *    Worst O(n^2)
+ *    Average O(n^2)
+ *    Best O(n^2)
+ *  Space Complexity 
+ *    Worst O()
+ *    Average O()
+ *    Best O()
+ *  Stable: Y
+ *  In Place: Y
+ *  Adaptive: N
+* */
+
+void bubble_sort(Item a[], int l, int r)
+{
+  for (int i = l; i < r; i++)
+    for(int j = r; j > l; j--)
+      compexch(a[j-1], a[j]);
   }
+}
+
+/* Selection Sort 
+ * Properties:
+ *  Time Complexity 
+ *    Worst O(n^2)
+ *    Average O(n^2)
+ *    Best O(n^2)
+ *  Space Complexity 
+ *    Worst O()
+ *    Average O()
+ *    Best O()
+ *  Stable: Y
+ *  In Place: Y
+ *  Adaptive: N
+ */
+void selection_sort(Item a[], int l, int r)
+{
+  for(int i = l; int i < r; i++)
+    for (int j = i; j < r; j++)
+      compexch(a[j], a[i]);
 }
 
 int main(int argc, char *argv[])
@@ -57,3 +111,4 @@ int main(int argc, char *argv[])
     printf("\n");
     return 0;
   }
+
