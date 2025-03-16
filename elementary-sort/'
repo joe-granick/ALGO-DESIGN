@@ -91,16 +91,12 @@ void bubble_sort(Item a[], int l, int r)
  */
 void selection_sort(Item a[], int l, int r)
 {
-  for(int i = l; int i < r; i++){
-      int min = i;
-    for (int j = i+1; j <= r; j++)
-      if(less(a[j], a[min])) min = j;
-    exch(a[i], a[min]);
-    }
+  for(int i = l; int i < r; i++)
+    for (int j = i; j < r; j++)
+      compexch(a[j], a[i]);
 }
 
-//void bubble_adaptive(Item a[], int l, int r)
-
+void bubble_adaptive(Item a[], int l, int r)
 void shell_sort(Item a[], int l, int r)
 
 int main(int argc, char *argv[])
