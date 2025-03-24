@@ -42,16 +42,24 @@ void insertion_sentinel(Item a[], int l, int r)
 {
   int i;
   // find lowest value for sentinel key, and place in first index
+  printf("\nPlace smallest element at front as sentinel key:\n");
   for(i=r; i>l; i--) compexch(a[i-1],a[i]);
+  printArray(a,l,r);
   // main work of insertion sort
   for(i=l+2; i<=r; i++) // assume first entry sorted, second element becomes first selection compared to 2nd element 
   {int j=i; Item key = a[j];
+  printf("\nKey: %d \n", key);
+  printArray(a,l,r);
     // setting with while loop like this creates an adaptive sort
     // cutting off comparisons once comparison fails
     // as all remaining comparisons will also be equal or smaller
+    
     while(less(key, a[j-1]))
-      {a[j] = a[j-1]; j--;}
-    a[j] = key;}
+      {printf("index: %d val: %d > key %d, move over next index %d value %d\n",(j-1), a[j-1], key, j, a[j]);
+      a[j] = a[j-1]; j--;
+      printArray(a, l, r); printf("\n");}
+    a[j] = key; printf("\nAssign Key: %d to index: %d\n", key, j);
+    printArray(a,l,r);}
 }
 
 
@@ -96,9 +104,18 @@ void quicksortMedian(Item a[], int l, int r)
 
 void sort(Item a[], int l, int r)
 {
+  // quicksort with median of 3 partitioning
+  // cutoff when called sublist length > M
+  // leaves a mostly sorted list
   quicksortMedian(a,l,r);
+  printArray(a,l,r);
   printf("[FINAL SORT] Final Cleanup with Insertion Sort\n");
+  // use insertio sort for remaining list
+  // insertion sort is fast for small files and files that are mostly sorted
+  // so will be called if list is small (<M) for entire list which willbe small
+  // or will sort remaining unsorted elements, since list will be mostly sorted it will aslo be fast
   insertion_sentinel(a,l,r);
+  printArray(a,l,r);
 }
 
 int main(int argc, char *argv[])
@@ -114,8 +131,6 @@ int main(int argc, char *argv[])
       int count = 0;
       while (count < N && scanf("%d", &a[count]) == 1) count++;
       }
-    //insertion_sentinel(a, 0, N-1);
-    //quicksortMedian(a,0,N-1);
     sort(a, 0, N-1);
     for (i = 0; i < N; i++) printf("%3d ", a[i]);
     printf("\n");
