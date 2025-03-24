@@ -5,6 +5,7 @@ typedef int Item; //how does item work here?
 #define less(A,B) (key(A) < key(B))
 #define exch(A,B) { Item t = A; A = B; B = t;}
 #define compexch(A,B) if(less(B,A)) exch(A,B)
+#define M 10
 
 // insertion sort implementation
 int partition(Item a[], int l, int r);
@@ -108,7 +109,27 @@ void selection_sort(Item a[], int l, int r)
 
 //void bubble_adaptive(Item a[], int l, int r)
 
-void shell_sort(Item a[], int l, int r)
+//void shell_sort(Item a[], int l, int r)
+
+void quicksort(Item a[], int l, int r)
+{int i;
+  if(r-l<=M) return;
+
+  exch(a[(l+r)/2], a[r-a]);
+  compexch(a[l],a[r-1]);
+  compexch(a[l],a[r]);
+  compexch(a[r-1], a[r]);
+
+  i = partition(a, l+1, r-1);
+  quicksort(a,l,i-1);
+  quicksort(a,i+1,r);
+}
+
+void sort(Item a[], int l, int r)
+{
+  quicksort(a,l,r);
+  insertion_sentinel(a,l,r);
+}
 
 int main(int argc, char *argv[])
   { int i, N = atoi(argv[1]), sw = atoi(argv[2]);
