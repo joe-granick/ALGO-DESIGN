@@ -8,11 +8,22 @@ typedef int Item; //how does item work here?
 #define M 10
 
 // insertion sort implementation
-int partition(Item a[], int l, int r);
+int partition(Item a[], int l, int r)
+{
+  int i = l-1, j = r; Item v = a[r];
+  for(;;)
+  {
+    while(less(a[++i], v)); 
+    while(less(v,a[--j])) if(j==l) break;
+    exch(a[i],a[j]);
+  }
+  exch(a[i], a[r]);
+  return i;
+}
 void quicksort(Item a[], int l, int r){
   int i;
   if(r<=l) return;
-  int i = partition(a, l, r);
+  i = partition(a, l, r);
   quicksort(a, l, i-1);
   quicksort(a, i+1, r);
 }
@@ -80,7 +91,6 @@ void bubble_sort(Item a[], int l, int r)
   for (int i = l; i < r; i++)
     for(int j = r; j > l; j--)
       compexch(a[j-1], a[j]);
-  }
 }
 
 /* Selection Sort 
@@ -99,7 +109,7 @@ void bubble_sort(Item a[], int l, int r)
  */
 void selection_sort(Item a[], int l, int r)
 {
-  for(int i = l; int i < r; i++){
+  for(int i = l; i < r; i++){
       int min = i;
     for (int j = i+1; j <= r; j++)
       if(less(a[j], a[min])) min = j;
@@ -111,11 +121,11 @@ void selection_sort(Item a[], int l, int r)
 
 //void shell_sort(Item a[], int l, int r)
 
-void quicksort(Item a[], int l, int r)
+void quicksortMedian(Item a[], int l, int r)
 {int i;
   if(r-l<=M) return;
 
-  exch(a[(l+r)/2], a[r-a]);
+  exch(a[(l+r)/2], a[r-1]);
   compexch(a[l],a[r-1]);
   compexch(a[l],a[r]);
   compexch(a[r-1], a[r]);
@@ -127,7 +137,7 @@ void quicksort(Item a[], int l, int r)
 
 void sort(Item a[], int l, int r)
 {
-  quicksort(a,l,r);
+  quicksortMedian(a,l,r);
   insertion_sentinel(a,l,r);
 }
 
